@@ -1,14 +1,12 @@
 package solve;
 
 import generate.calculatorParser;
-import generate.ThrowingErrorListener;
 import generate.calculatorBaseVisitor;
 import generate.calculatorLexer;
 import org.antlr.v4.gui.TreeViewer;
-import org.antlr.v4.runtime.ANTLRErrorStrategy;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.DefaultErrorStrategy;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -21,7 +19,7 @@ public class CalculatorSolutionVisitor extends calculatorBaseVisitor {
     private calculatorParser parser;
     private ParseTree tree;
 
-    public Float solve(String expression) {
+    public Float solve(String expression) throws ParseCancellationException{
 
         lexer = new calculatorLexer(CharStreams.fromString(expression));
         lexer.removeErrorListeners();
@@ -33,13 +31,17 @@ public class CalculatorSolutionVisitor extends calculatorBaseVisitor {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
-        tree = parser.start();
-
-        TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
-        viewer.setScale(2);
-        viewer.open();
-
-        return (Float) visit(tree);
+        try {
+	        tree = parser.start();
+	
+	        TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
+	        viewer.setScale(2);
+	        viewer.open();
+	
+	        return (Float) visit(tree);
+        } catch (ParseCancellationException e) {
+			throw e;
+		}
     }
     
     @Override
