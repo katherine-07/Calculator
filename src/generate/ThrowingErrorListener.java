@@ -14,3 +14,4 @@ public class ThrowingErrorListener extends BaseErrorListener {
 	         throw new ParseCancellationException("line " + line + ":" + charPositionInLine + " INVALID EXPRESSION " + msg);
 	      }
 	}
+ 

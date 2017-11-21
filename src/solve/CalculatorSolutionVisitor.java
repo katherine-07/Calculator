@@ -18,17 +18,16 @@ public class CalculatorSolutionVisitor extends calculatorBaseVisitor {
 
     private calculatorLexer lexer;
     private CommonTokenStream tokens;
-    private ANTLRErrorStrategy errorStrategy;
     private calculatorParser parser;
     private ParseTree tree;
 
     public Float solve(String expression) {
 
         lexer = new calculatorLexer(CharStreams.fromString(expression));
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
 
         tokens = new CommonTokenStream(lexer);
-
-        errorStrategy = new DefaultErrorStrategy();
 
         parser = new calculatorParser(tokens);
         parser.removeErrorListeners();
