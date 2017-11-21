@@ -1,6 +1,7 @@
 package solve;
 
 import generate.calculatorParser;
+import generate.ThrowingErrorListener;
 import generate.calculatorBaseVisitor;
 import generate.calculatorLexer;
 import org.antlr.v4.gui.TreeViewer;
@@ -30,7 +31,8 @@ public class CalculatorSolutionVisitor extends calculatorBaseVisitor {
         errorStrategy = new DefaultErrorStrategy();
 
         parser = new calculatorParser(tokens);
-        parser.setErrorHandler(errorStrategy);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
         tree = parser.start();
 
@@ -40,7 +42,7 @@ public class CalculatorSolutionVisitor extends calculatorBaseVisitor {
 
         return (Float) visit(tree);
     }
-
+    
     @Override
     public Object visitStart(calculatorParser.StartContext ctx) {
         return visit(ctx.num_expression());
