@@ -12,12 +12,10 @@ public class Driver {
             String input = s.nextLine();
             switch(input){
                 case "Y":
-                    //FALLTHROUGH
                 case "y":
                     isDone = false;
                     break;
                 case "N":
-                    //FALLTHROUGH
                 case "n":
                     isDone = true;
                     break;
@@ -30,7 +28,7 @@ public class Driver {
 
             Float output = visitor.solve(expression);
             if(output != null){
-                System.out.println("Answer: "+output);
+                System.out.println("Answer: "+ output);
             }else{
                 System.out.println("Invalid Expression.");
             }

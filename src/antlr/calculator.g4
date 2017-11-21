@@ -16,6 +16,7 @@ num_expression:       num_expression op=(MUL|DIV|MOD) num_expression    # MDM
                     | num_expression op=(ADD|SUB) num_expression        # AS
                     | value                                             # ValNumber
                     | '('num_expression')'                              # ParenExpression
+                    | SUB '('num_expression')'							# NegativeParenExpression
     ;
 
 

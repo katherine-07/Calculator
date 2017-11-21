@@ -1,7 +1,7 @@
 package solve;
 
-import generate.calculatorBaseVisitor;
 import generate.calculatorParser;
+import generate.calculatorBaseVisitor;
 import generate.calculatorLexer;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.ANTLRErrorStrategy;
